@@ -116,6 +116,11 @@
 )]
 #![warn(clippy::correctness, clippy::suspicious, clippy::perf)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+// In release builds, logging macros compile to nothing, so variables only
+// used in log statements become unused.
+#![cfg_attr(not(debug_assertions), allow(unused_variables))]
+
+pub mod logging;
 
 // Core PQC modules - the main attraction
 pub mod pqc;
